@@ -11,9 +11,11 @@
 #include <list>
 
 
+
 #include "AbstractInterp4Command.hh"
 #include "xmlinterp.hh"
-
+// #include "LibInterface.hh"
+#include "Set4LibInterfaces.hh"
 using namespace std;
 using namespace xercesc;
 
@@ -122,222 +124,16 @@ bool ReadFile(const char* sFileName, Configuration &rConfig)
 
 int main(int argc, char *argv[])
 {
-  
-  // void *pLibHnd_Move = dlopen("libInterp4Move.so",RTLD_LAZY); // ładuje biblioteke
-  // void *pLibHnd_Rotate = dlopen("libInterp4Rotate.so",RTLD_LAZY);
-  // void *pLibHnd_Pause = dlopen("libInterp4Pause.so",RTLD_LAZY);
-  // void *pLibHnd_Set = dlopen("libInterp4Set.so",RTLD_LAZY);
-
-
-  // AbstractInterp4Command *(*pCreateCmd_Move)(void);
-  // void *pFun;
-
-  // if (!pLibHnd_Move) {
-  //   cerr << "!!! Brak biblioteki: Interp4Move.so" << endl;
-  //   return 1;
-  // }
-
-  // AbstractInterp4Command *(*pCreateCmd_Rotate)(void);
-  // void *pFun_rotate;
-
-  // if (!pLibHnd_Rotate) {
-  //   cerr << "!!! Brak biblioteki: Interp4Rotate.so" << endl;
-  //   return 1;
-  // }
-
-  // AbstractInterp4Command *(*pCreateCmd_Pause)(void);
-  // void *pFun_pause;
-
-  // if (!pLibHnd_Pause) {
-  //   cerr << "!!! Brak biblioteki: Interp4Pause.so" << endl;
-  //   return 1;
-  // }
-
-  // AbstractInterp4Command *(*pCreateCmd_Set)(void);
-  // void *pFun_set;
-
-  // if (!pLibHnd_Set) {
-  //   cerr << "!!! Brak biblioteki: Interp4Set.so" << endl;
-  //   return 1;
-  // }
-
-
-  // pFun = dlsym(pLibHnd_Move,"CreateCmd"); // pobiera wskaźnik do funkcji
-  // if (!pFun) {
-  //   cerr << "!!! Nie znaleziono funkcji CreateCmd" << endl;
-  //   return 1;
-  // }
-  // pCreateCmd_Move = reinterpret_cast<AbstractInterp4Command* (*)(void)>(pFun);
-
-  // pFun_rotate = dlsym(pLibHnd_Rotate,"CreateCmd");
-  // if (!pFun_rotate) {
-  //   cerr << "!!! Nie znaleziono funkcji CreateCmd" << endl;
-  //   return 1;
-  // }
-  // pCreateCmd_Rotate = reinterpret_cast<AbstractInterp4Command* (*)(void)>(pFun_rotate);
-
-  // pFun_pause = dlsym(pLibHnd_Pause,"CreateCmd");
-  // if (!pFun_pause) {
-  //   cerr << "!!! Nie znaleziono funkcji CreateCmd" << endl;
-  //   return 1;
-  // }
-  // pCreateCmd_Pause = reinterpret_cast<AbstractInterp4Command* (*)(void)>(pFun_pause);
-
-  // pFun_set = dlsym(pLibHnd_Set,"CreateCmd");
-  // if (!pFun_set) {
-  //   cerr << "!!! Nie znaleziono funkcji CreateCmd" << endl;
-  //   return 1;
-  // }
-  // pCreateCmd_Set = reinterpret_cast<AbstractInterp4Command* (*)(void)>(pFun_set);
-
-  // AbstractInterp4Command *pCmd_move = pCreateCmd_Move();
-  // AbstractInterp4Command *pCmd_rotate = pCreateCmd_Rotate();
-  // AbstractInterp4Command *pCmd_pause = pCreateCmd_Pause();
-  // AbstractInterp4Command *pCmd_set = pCreateCmd_Set();
-
-  void *pLibHnd_Move = dlopen("libInterp4Move.so",RTLD_LAZY); // ładuje biblioteke
-  void *pLibHnd_Rotate = dlopen("libInterp4Rotate.so",RTLD_LAZY);
-  void *pLibHnd_Pause = dlopen("libInterp4Pause.so",RTLD_LAZY);
-  void *pLibHnd_Set = dlopen("libInterp4Set.so",RTLD_LAZY);
-
-
-  AbstractInterp4Command *(*pCreateCmd_Move)(void);
-  void *pFun;
-
-  if (!pLibHnd_Move) {
-    cerr << "!!! Brak biblioteki: Interp4Move.so" << endl;
-    return 1;
-  }
-
-  AbstractInterp4Command *(*pCreateCmd_Rotate)(void);
-  void *pFun_rotate;
-
-  if (!pLibHnd_Rotate) {
-    cerr << "!!! Brak biblioteki: Interp4Rotate.so" << endl;
-    return 1;
-  }
-
-  AbstractInterp4Command *(*pCreateCmd_Pause)(void);
-  void *pFun_pause;
-
-  if (!pLibHnd_Pause) {
-    cerr << "!!! Brak biblioteki: Interp4Pause.so" << endl;
-    return 1;
-  }
-
-  AbstractInterp4Command *(*pCreateCmd_Set)(void);
-  void *pFun_set;
-
-  if (!pLibHnd_Set) {
-    cerr << "!!! Brak biblioteki: Interp4Set.so" << endl;
-    return 1;
-  }
-
-
-  pFun = dlsym(pLibHnd_Move,"CreateCmd"); // pobiera wskaźnik do funkcji
-  if (!pFun) {
-    cerr << "!!! Nie znaleziono funkcji CreateCmd" << endl;
-    return 1;
-  }
-  pCreateCmd_Move = reinterpret_cast<AbstractInterp4Command* (*)(void)>(pFun);
-
-  pFun_rotate = dlsym(pLibHnd_Rotate,"CreateCmd");
-  if (!pFun_rotate) {
-    cerr << "!!! Nie znaleziono funkcji CreateCmd" << endl;
-    return 1;
-  }
-  pCreateCmd_Rotate = reinterpret_cast<AbstractInterp4Command* (*)(void)>(pFun_rotate);
-
-  pFun_pause = dlsym(pLibHnd_Pause,"CreateCmd");
-  if (!pFun_pause) {
-    cerr << "!!! Nie znaleziono funkcji CreateCmd" << endl;
-    return 1;
-  }
-  pCreateCmd_Pause = reinterpret_cast<AbstractInterp4Command* (*)(void)>(pFun_pause);
-
-  pFun_set = dlsym(pLibHnd_Set,"CreateCmd");
-  if (!pFun_set) {
-    cerr << "!!! Nie znaleziono funkcji CreateCmd" << endl;
-    return 1;
-  }
-  pCreateCmd_Set = reinterpret_cast<AbstractInterp4Command* (*)(void)>(pFun_set);
-
-  AbstractInterp4Command *pCmd_move = pCreateCmd_Move();
-  AbstractInterp4Command *pCmd_rotate = pCreateCmd_Rotate();
-  AbstractInterp4Command *pCmd_pause = pCreateCmd_Pause();
-  AbstractInterp4Command *pCmd_set = pCreateCmd_Set();
-
   istringstream strm4Cmds;
-  if(!ExecPreprocesor("/home/joanna/Desktop/ZAMP/ZAMP_zalazek/opis_dzialan.cmd", strm4Cmds)) {
+  if(!ExecPreprocesor("/home/joanna/Desktop/ZAMP/ZAMP/opis_dzialan.cmd", strm4Cmds)) {
     cout << "Nie udało się wczytac pliku.\n";
     return 0;
   }
   string n;
+  strm4Cmds >> n;
+  cout << n;
 
-  Configuration   Config;
-
-  if (!ReadFile("config/config.xml",Config)) return 1;
-
-  while (strm4Cmds) {
- 
-        strm4Cmds >> n;
-
-        if(n == "Set") {
-          pCmd_set->ReadParams(strm4Cmds);
-          cout << endl;
-          cout << pCmd_set->GetCmdName() << endl;
-          cout << endl;
-          pCmd_set->PrintSyntax();
-          cout << endl;
-          pCmd_set->PrintCmd();
-          cout << endl;
-
-        }
-        else if(n == "Move"){
-          pCmd_move->ReadParams(strm4Cmds);
-          cout << endl;
-          cout << pCmd_move->GetCmdName() << endl;
-          cout << endl;
-          pCmd_move->PrintSyntax();
-          cout << endl;
-          pCmd_move->PrintCmd();
-          cout << endl;
-
-        }
-        else if(n == "Rotate"){
-
-          pCmd_rotate->ReadParams(strm4Cmds);
-
-          cout << endl;
-          cout << pCmd_rotate->GetCmdName() << endl;
-          cout << endl;
-          pCmd_rotate->PrintSyntax();
-          cout << endl;
-          pCmd_rotate->PrintCmd();
-          cout << endl;    
-        }
-        else if(n == "Pause"){
-          pCmd_pause->ReadParams(strm4Cmds);
-          cout << endl;
-          cout << pCmd_pause->GetCmdName() << endl;
-          cout << endl;
-          pCmd_pause->PrintSyntax();
-          cout << endl;
-          pCmd_pause->PrintCmd();
-          cout << endl;
-        }       
-    }
-  
-  delete pCmd_move;
-  delete pCmd_rotate;
-  delete pCmd_pause;
-  delete pCmd_set;
-
-  dlclose(pLibHnd_Move); 
-  dlclose(pLibHnd_Rotate);
-  dlclose(pLibHnd_Pause);
-  dlclose(pLibHnd_Set);
-
-
+  Set4LibInterfaces lol;
+  lol.findLibrary(strm4Cmds);
 
 }

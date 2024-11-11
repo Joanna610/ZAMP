@@ -19,11 +19,8 @@ __plugin__:
 CPPFLAGS=-Wall -pedantic -std=c++17 -Iinc
 LDFLAGS=-Wall
 
-
-
-
-interp: obj/main.o obj/xmlinterp.o obj/LibInterface.o
-	g++ ${LDFLAGS} -o interp  obj/main.o obj/xmlinterp.o obj/LibInterface.o -ldl -lxerces-c
+interp: obj/main.o obj/xmlinterp.o obj/LibInterface.o obj/AbstractInterp4Command.o obj/AbstractMobileObj.o obj/AbstractScene.o obj/AbstractComChannel.o obj/Set4LibInterfaces.o
+	g++ ${LDFLAGS} -o interp  obj/main.o obj/xmlinterp.o obj/LibInterface.o obj/AbstractInterp4Command.o obj/AbstractMobileObj.o  obj/AbstractScene.o obj/AbstractComChannel.o obj/Set4LibInterfaces.o -ldl -lxerces-c
 
 obj/xmlinterp.o: src/xmlinterp.cpp inc/xmlinterp.hh
 	g++ -c ${CPPFLAGS} -o obj/xmlinterp.o src/xmlinterp.cpp
@@ -34,6 +31,22 @@ obj/main.o: src/main.cpp inc/AbstractInterp4Command.hh inc/AbstractScene.hh\
 
 obj/LibInterface.o: src/LibInterface.cpp inc/LibInterface.hh
 	g++ -c ${CPPFLAGS} -o obj/LibInterface.o src/LibInterface.cpp
+
+obj/AbstractInterp4Command.o: src/AbstractInterp4Command.cpp inc/AbstractInterp4Command.hh
+	g++ -c ${CPPFLAGS} -o obj/AbstractInterp4Command.o src/AbstractInterp4Command.cpp
+
+obj/AbstractMobileObj.o: src/AbstractMobileObj.cpp inc/AbstractMobileObj.hh
+	g++ -c ${CPPFLAGS} -o obj/AbstractMobileObj.o src/AbstractMobileObj.cpp
+	
+obj/AbstractScene.o: src/AbstractScene.cpp inc/AbstractScene.hh
+	g++ -c ${CPPFLAGS} -o obj/AbstractScene.o src/AbstractScene.cpp
+
+obj/AbstractComChannel.o: src/AbstractComChannel.cpp inc/AbstractComChannel.hh
+	g++ -c ${CPPFLAGS} -o obj/AbstractComChannel.o src/AbstractComChannel.cpp
+
+obj/Set4LibInterfaces.o: src/Set4LibInterfaces.cpp inc/Set4LibInterfaces.hh
+	g++ -c ${CPPFLAGS} -o obj/Set4LibInterfaces.o src/Set4LibInterfaces.cpp
+
 doc:
 	cd dox; make
 

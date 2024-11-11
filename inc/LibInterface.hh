@@ -16,10 +16,14 @@ class LibInterface{
 
     void *_LibHandler;
     std::string CmdName;
-    AbstractInterp4Command *(*)() _pCreateCmd;
+    AbstractInterp4Command *(*_pCreateCmd)();
+    AbstractInterp4Command *pCmd;
 
-    public:
+public:
+    bool openLibrary();
+    void print();
+    void readStream(std::istream& Strm);
+    LibInterface(std::string LibraryName);
     ~LibInterface();
 };
-
 #endif

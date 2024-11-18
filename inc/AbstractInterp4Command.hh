@@ -23,7 +23,7 @@
   class AbstractInterp4Command {
    public:
 
-    virtual ~AbstractInterp4Command() {}
+    virtual ~AbstractInterp4Command() = default;
     
     /*!
      * \brief Wyświetla postać bieżącego polecenia (nazwę oraz wartości parametrów)

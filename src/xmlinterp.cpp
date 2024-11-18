@@ -25,7 +25,7 @@ XMLInterp4Config::XMLInterp4Config(Configuration &rConfig)
  */
 void XMLInterp4Config::startDocument()
 {
-  cout << "*** Rozpoczecie przetwarzania dokumentu XML." << endl;
+  // cout << "*** Rozpoczecie przetwarzania dokumentu XML." << endl;
 }
 
 
@@ -35,7 +35,7 @@ void XMLInterp4Config::startDocument()
  */
 void XMLInterp4Config::endDocument()
 {
-  cout << "=== Koniec przetwarzania dokumentu XML." << endl;
+  // cout << "=== Koniec przetwarzania dokumentu XML." << endl;
 }
 
 

@@ -8,7 +8,6 @@ LibInterface::LibInterface(std::string LibraryName): _LibHandler(nullptr),
                                                     pCmd(nullptr)
                                                     {
     this->openLibrary();
-    // this->print();
 }
 
 LibInterface::~LibInterface(){

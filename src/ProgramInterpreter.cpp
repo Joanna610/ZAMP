@@ -1,4 +1,5 @@
 #include "ProgramInterpreter.hh"
+#include <iostream>
 
 using namespace std;
 
@@ -11,7 +12,6 @@ bool ProgramInterpreter::Read_XML_Config(const char* FileName){
  * \retval true - jeśli wczytanie zostało zrealizowane poprawnie,
  * \retval false - w przeciwnym przypadku.
  */
-  cout<< "\n\n1\n\n";
    try {
             XMLPlatformUtils::Initialize();
    }
@@ -23,21 +23,16 @@ bool ProgramInterpreter::Read_XML_Config(const char* FileName){
             XMLString::release(&message);
             return 1;
    }
-  cout<< "\n\n2\n\n";
    SAX2XMLReader* pParser = XMLReaderFactory::createXMLReader();
-
    pParser->setFeature(XMLUni::fgSAX2CoreNameSpaces, true);
    pParser->setFeature(XMLUni::fgSAX2CoreValidation, true);
    pParser->setFeature(XMLUni::fgXercesDynamic, false);
    pParser->setFeature(XMLUni::fgXercesSchema, true);
    pParser->setFeature(XMLUni::fgXercesSchemaFullChecking, true);
-
    pParser->setFeature(XMLUni::fgXercesValidationErrorAsFatal, true);
-
    DefaultHandler* pHandler = new XMLInterp4Config(rConfig);
    pParser->setContentHandler(pHandler);
    pParser->setErrorHandler(pHandler);
-  cout<< "\n\n3\n\n";
    try {
      
      if (!pParser->loadGrammar("config/config.xsd",
@@ -47,11 +42,8 @@ bool ProgramInterpreter::Read_XML_Config(const char* FileName){
             << endl;
        return false;
      }
-     cout<< "\n\n5\n\n";
      pParser->setFeature(XMLUni::fgXercesUseCachedGrammarInParse,true);
-     cout<< "\n\n6\n\n";
      pParser->parse(FileName);
-     cout<< "\n\n7\n\n";
    }
    catch (const XMLException& Exception) {
             char* sMessage = XMLString::transcode(Exception.getMessage());
@@ -79,7 +71,6 @@ bool ProgramInterpreter::Read_XML_Config(const char* FileName){
             cout << "Zgloszony zostal nieoczekiwany wyjatek!\n" ;
             return false;
    }
-cout<< "\n\n4\n\n";
    delete pParser;
    delete pHandler;
     return true;
@@ -100,10 +91,67 @@ bool ProgramInterpreter::ExecPreprocesor(const char* FileName_Prog){
   return pclose(pProc) == 0;
 }
 
+bool ProgramInterpreter::OpenConnection(){
+  struct sockaddr_in  DaneAdSerw;
+
+  bzero((char *)&DaneAdSerw,sizeof(DaneAdSerw));
+
+  DaneAdSerw.sin_family = AF_INET;
+  DaneAdSerw.sin_addr.s_addr = inet_addr("127.0.0.1");
+  DaneAdSerw.sin_port = htons(PORT);
+
+
+  int Socket = socket(AF_INET,SOCK_STREAM,0);
+
+  if (Socket < 0) {
+     cerr << "*** Blad otwarcia gniazda." << endl;
+     return false;
+  }
+
+  if (connect(Socket,(struct sockaddr*)&DaneAdSerw,sizeof(DaneAdSerw)) < 0)
+   {
+     cerr << "*** Brak mozliwosci polaczenia do portu: " << PORT << endl;
+     return false;
+   }
+
+   _Chann2Serv.Init(Socket);
+  return true;
+}
+
+bool ProgramInterpreter::SendObjToServer(){
+  _Chann2Serv.Send("Clear\n");
+
+    std::string cstr = rConfig.getMessage();
+    const char* data = cstr.data();
+    _Chann2Serv.Send(data);
+
+  while(rConfig.getListSize() != 0 ){
+    cstr = rConfig.getMessage();
+    data = cstr.data();
+    _Chann2Serv.Send(data);
+  } 
+  _Chann2Serv.Send("Close\n");
+  return true;
+  
+}
+
 
 bool ProgramInterpreter::ExecProgram(const char* FileName_Prog){
+     OpenConnection();
+
+     SendObjToServer();
+
+
     if(!this->ExecPreprocesor(FileName_Prog)) return false;
     this->interface.findLibrary(IStrm4Cmds);
+
     return true;
 }
+
+
+// void ProgramInterpreter::showConfiguration(){
+//      rConfig.showObjects();
+// }
+
+
 

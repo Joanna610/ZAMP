@@ -11,6 +11,8 @@
 // #include "Configuration.hh"
 #include "Set4LibInterfaces.hh"
 #include "Scene.hh"
+
+#include "Port.hh"
 #include "ComChannel.hh"
 
 #define LINE_SIZE 500
@@ -29,5 +31,12 @@ public:
     bool Read_XML_Config(const char* FileName);
     bool ExecProgram(const char* FileName_Prog);
     bool ExecPreprocesor(const char* FileName_Prog);
+    void showConfiguration();
+    // bool OpenConnection(int &rSocket);
+    bool OpenConnection();
+    bool SendObjToServer();
+
+
+
 };
 #endif

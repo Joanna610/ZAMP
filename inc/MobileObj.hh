@@ -9,7 +9,7 @@
  * do animacji ruchu obiektów.
  */
 #define STATES_NUMBER   8
-
+#include "Configuration.hh"
 
 class MobileObj{
     /*!

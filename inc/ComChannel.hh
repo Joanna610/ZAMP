@@ -71,6 +71,8 @@
         *  bezpieczniejszego zamknięcia.
         */
        virtual std::mutex &UseGuard() override;
+
+       int Send(const char *sMesg);
     };
 
 

@@ -78,6 +78,8 @@ namespace geom {
      */
    Vector() { for (Type &Val : _Coord) Val = 0; }
 
+
+    // std::istream & operator>>( std::istream & s, Vector<Type,Size> & v );
     /*!
      * \brief Dostęp do wybranej składowej wektora.
      *
@@ -177,6 +179,9 @@ namespace geom {
       *                            \b *this (wektor) / \e Dzielnik (liczba).
       */
    Vector<Type,Size>  operator  / (Type Dzielnik) const;
+
+
+  //  Vector<Type,Size>  operator  = (Type Przyrownany);
 
      /*!
       * \brief Dzielenie wektora przez liczbę i przypisanie wyniku
@@ -298,9 +303,44 @@ namespace geom {
      */
    void Normalize() 
      { Type d = Length(); for (Type &Crd : _Coord) Crd /= d; }
+
+    Vector<Type,Size> & operator =( const Vector<Type,Size> & x );
+    Vector<Type,Size> & operator =( const Type & x );
+
  };
 
- 
+template<typename Type, unsigned int Size>
+ inline
+ Vector<Type,Size> & Vector<Type,Size>::operator =( const Vector<Type,Size> & x )
+    {
+      for (unsigned Ind = 0; Ind < Size; ++Ind) {
+        _Coord[Ind] = x[Ind];
+       
+    }
+     return * this;
+}
+
+template<typename Type, unsigned int Size>
+ inline
+ Vector<Type,Size> & Vector<Type,Size>::operator =( const Type & x )
+    {
+      for (unsigned Ind = 0; Ind < Size; ++Ind) {
+        _Coord[Ind] = x;
+       
+    }
+     return * this;
+}
+ template<typename Type, unsigned int Size>
+ inline
+  std::istream & operator >>( std::istream & s, Vector<Type,Size> & v )
+{
+  for (unsigned Ind = 0; Ind < Size; ++Ind) {
+    s >> v[Ind];
+  }
+    return s;
+}
+
+
  template<typename Type, unsigned int Size>
  inline
  bool Vector<Type,Size>::IsInside(Vector<Type,Size> const &Min, Vector<Type,Size> Max) const
@@ -329,6 +369,13 @@ namespace geom {
    return *this;
  }
   
+  // template<typename Type, unsigned int Size>
+//  inline
+//   Vector<Type,Size>  Vector<Type,Size>::operator = (Type Przyrownany){
+//     for(unsigned int Ind = 0; Ind < Size; ++Ind)
+    
+//     return Vector<Type,Size>(*this) = Przyrownany;
+//   }
 
  template<typename Type, unsigned int Size>
  inline

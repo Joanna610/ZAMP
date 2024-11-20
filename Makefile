@@ -21,13 +21,13 @@ LDFLAGS=-Wall
 
 interp: obj/main.o obj/xmlinterp.o obj/LibInterface.o obj/AbstractInterp4Command.o\
 	 	obj/AbstractMobileObj.o obj/AbstractScene.o obj/AbstractComChannel.o obj/ComChannel.o\
-	  	obj/Set4LibInterfaces.o obj/Scene.o obj/MobileObj.o obj/ProgramInterpreter.o
+	  	obj/Set4LibInterfaces.o obj/Scene.o obj/MobileObj.o obj/ProgramInterpreter.o obj/Configuration.o
 	g++ ${LDFLAGS} -o interp  obj/main.o obj/xmlinterp.o obj/LibInterface.o\
 		obj/AbstractInterp4Command.o obj/AbstractMobileObj.o  obj/AbstractScene.o\
 		obj/AbstractComChannel.o obj/ComChannel.o obj/Set4LibInterfaces.o obj/Scene.o\
-		obj/MobileObj.o obj/ProgramInterpreter.o -ldl -lxerces-c
+		obj/MobileObj.o obj/ProgramInterpreter.o obj/Configuration.o -ldl -lxerces-c
 
-obj/xmlinterp.o: src/xmlinterp.cpp inc/xmlinterp.hh
+obj/xmlinterp.o: src/xmlinterp.cpp inc/xmlinterp.hh inc/Vector3D.hh
 	g++ -c ${CPPFLAGS} -o obj/xmlinterp.o src/xmlinterp.cpp
 
 obj/main.o: src/main.cpp  inc/ProgramInterpreter.hh
@@ -62,6 +62,9 @@ obj/MobileObj.o: src/MobileObj.cpp inc/MobileObj.hh
 
 obj/ProgramInterpreter.o: src/ProgramInterpreter.cpp inc/ProgramInterpreter.hh
 	g++ -c ${CPPFLAGS} -o obj/ProgramInterpreter.o src/ProgramInterpreter.cpp
+
+obj/Configuration.o: src/Configuration.cpp inc/Configuration.hh
+	g++ -c ${CPPFLAGS} -o obj/Configuration.o src/Configuration.cpp
 
 
 

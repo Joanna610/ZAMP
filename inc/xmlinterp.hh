@@ -13,6 +13,7 @@
 //XERCES_CPP_NAMESPACE_USE
 
 #include "Configuration.hh"
+#include "DataFromXML.hh"
 
 
 /*!
@@ -22,6 +23,9 @@
  * pliku XML.
  */
 class XMLInterp4Config : public xercesc::DefaultHandler {
+
+  Configuration& rConfig;
+
   public:
    /*!
     * \brief Inicjalizuje obiekt i kojarzy go z listą poleceń robota
@@ -83,7 +87,8 @@ class XMLInterp4Config : public xercesc::DefaultHandler {
      * \brief Analizuje atrybuty i odpwiednio je interpretuje
      */
     void ProcessCubeAttrs(const xercesc::Attributes&   rAttrs); 
-  private:
+    void load(DataFromXML& obj, char* Value, std::string Name);
+
 };
 
 #endif

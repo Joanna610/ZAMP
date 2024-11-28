@@ -4,14 +4,15 @@
 #include <map>
 #include <memory>
 #include <string>
+#include <list>
 #include "AbstractScene.hh"
-#include "MobileObj.hh"
+#include "Cuboid.hh"
 
 using namespace std;
 
 class Scene: public AbstractScene{
-    map<string, shared_ptr<MobileObj>> _Set_MobileObjs;
-
+    // map<string, shared_ptr<Cuboid>> _Set_MobileObjs;
+    list<Cuboid> _list_lol;
     // std::vector<MobileObj>   _Container4Objects;
 
     public:

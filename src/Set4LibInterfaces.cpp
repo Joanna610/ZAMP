@@ -7,12 +7,14 @@ Set4LibInterfaces::Set4LibInterfaces(){
     commandLibs["Set"] = std::make_shared<LibInterface>("libInterp4Set.so");
 }
 
+// odwoluje sie do konkretnej biblioteki ktora znajdzie
 void Set4LibInterfaces::findLibrary(std::istream& Strm){
 
     std::string n;
     while (Strm >> n) { 
         auto it = commandLibs.find(n);
         if (it != commandLibs.end()) {
+            // wczytuje znaeziona biblioteke i wczytuje jej parametry
             it->second->readStream(Strm);
             it->second->print();
         }

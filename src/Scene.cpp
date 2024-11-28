@@ -9,5 +9,7 @@ AbstractMobileObj*  Scene::FindMobileObj(const char *sName) {
 }
 
 void Scene::AddMobileObj(AbstractMobileObj *pMobObj) {
+    // _list_lol.push_back(*pMobObj);
+    // _Set_MobileObjs["Move"] = std::make_shared<AbstractMobileObj>("libInterp4Move.so");
 
 }

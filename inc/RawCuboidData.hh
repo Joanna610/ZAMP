@@ -5,17 +5,26 @@
 
 using namespace std;
 
-class DataFromXML{
+// struct data{
+//     std::string _Name;
+//     Vector3D _Shift;
+//     Vector3D _Scale;
+//     Vector3D _RGB;
+//     Vector3D _RotXYZ_deg;
+//     Vector3D _Trans_m;
+// };
+
+struct RawCuboidData{
     
-    std::string _Name;
+    const char * _Name;
     Vector3D _Shift;
     Vector3D _Scale;
     Vector3D _RGB;
     Vector3D _RotXYZ_deg;
     Vector3D _Trans_m;
 
-public:
-    DataFromXML(){
+// public:
+    RawCuboidData(){
         _Name = "";
         _Shift = 0;
         _Scale = 0;
@@ -23,29 +32,29 @@ public:
         _RotXYZ_deg = 0;
         _Trans_m = 0;
     }
-    ~DataFromXML() = default;
+    ~RawCuboidData() = default;
 
     // void AddObject(std::string Name, Vector3D Shift, Vector3D Scale, Vector3D RGB, Vector3D RotXYZ_deg, Vector3D Trans_m);
 
-    std::string GetName(){ return this->_Name;}
-    Vector3D GetShift(){ return this->_Shift;}
-    Vector3D GetScale(){ return this->_Scale;}
-    Vector3D GetRGB(){ return this->_RGB;}
-    Vector3D GetRotXYZDeg(){ return this->_RotXYZ_deg;}
-    Vector3D GetTransM(){ return this->_Trans_m;}
+    // std::string GetName(){ return this->_Name;}
+    // Vector3D GetShift(){ return this->_Shift;}
+    // Vector3D GetScale(){ return this->_Scale;}
+    // Vector3D GetRGB(){ return this->_RGB;}
+    // Vector3D GetRotXYZDeg(){ return this->_RotXYZ_deg;}
+    // Vector3D GetTransM(){ return this->_Trans_m;}
 
 
-    void SetName(std::string Name){ this->_Name = Name;}
-    void SetShift(Vector3D Shift){ this->_Shift = Shift;}
-    void SetScale(Vector3D Scale){ this->_Scale = Scale;}
-    void SetRGB(Vector3D RGB){ this->_RGB = RGB;}
-    void SetRotXYZDeg(Vector3D RotXYZ){ this->_RotXYZ_deg = RotXYZ;}
-    void SetTransM(Vector3D TransM){ this->_Trans_m = TransM;}
+    // void SetName(std::string Name){ this->_Name = Name;}
+    // void SetShift(Vector3D Shift){ this->_Shift = Shift;}
+    // void SetScale(Vector3D Scale){ this->_Scale = Scale;}
+    // void SetRGB(Vector3D RGB){ this->_RGB = RGB;}
+    // void SetRotXYZDeg(Vector3D RotXYZ){ this->_RotXYZ_deg = RotXYZ;}
+    // void SetTransM(Vector3D TransM){ this->_Trans_m = TransM;}
 
     // void CleanObject();
     // void showData();
 
-    void AddObject(std::string Name, Vector3D Shift, Vector3D Scale, Vector3D RGB, Vector3D RotXYZ_deg, Vector3D Trans_m){
+    void AddObject(const char * Name, Vector3D Shift, Vector3D Scale, Vector3D RGB, Vector3D RotXYZ_deg, Vector3D Trans_m){
         _Name = Name;
         _Shift = Shift;
         _Scale = Scale;
@@ -72,7 +81,7 @@ public:
         cout << "\nTrans_m: "<< _Trans_m;
     }
 
-    DataFromXML & operator =( const DataFromXML & x )
+    RawCuboidData & operator =( const RawCuboidData & x )
     {
         _Name = x._Name;
         _Shift = x._Shift;

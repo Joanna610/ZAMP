@@ -11,6 +11,7 @@
 // #include "Configuration.hh"
 #include "Set4LibInterfaces.hh"
 #include "Scene.hh"
+#include "Cuboid.hh"
 
 #include "Port.hh"
 #include "ComChannel.hh"

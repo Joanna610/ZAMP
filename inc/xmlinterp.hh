@@ -13,7 +13,7 @@
 //XERCES_CPP_NAMESPACE_USE
 
 #include "Configuration.hh"
-#include "DataFromXML.hh"
+#include "RawCuboidData.hh"
 
 
 /*!
@@ -87,7 +87,7 @@ class XMLInterp4Config : public xercesc::DefaultHandler {
      * \brief Analizuje atrybuty i odpwiednio je interpretuje
      */
     void ProcessCubeAttrs(const xercesc::Attributes&   rAttrs); 
-    void load(DataFromXML& obj, char* Value, std::string Name);
+    void load(Vector3D& obj, char* Value);
 
 };
 

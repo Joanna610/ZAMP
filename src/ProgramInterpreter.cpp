@@ -73,6 +73,28 @@ bool ProgramInterpreter::Read_XML_Config(const char* FileName){
    }
    delete pParser;
    delete pHandler;
+
+  //   for (int value : myList) {
+  //   std::cout << value << " ";
+  // }
+
+    // cout << "============== Obiekty =============="<<endl;
+    
+   Cuboid *cuboid = new Cuboid;
+   cuboid->SetName(rConfig[0]._Name);
+   cuboid->SetPosition_m(rConfig[0]._Trans_m);
+   cuboid->SetAng_Pitch_deg(rConfig[0]._RotXYZ_deg[0]);
+   cuboid->SetAng_Roll_deg(rConfig[0]._RotXYZ_deg[1]);
+   cuboid->SetAng_Yaw_deg(rConfig[0]._RotXYZ_deg[2]);
+  std::cout << "Adding to scene..." << std::endl;
+
+    _Scn.AddMobileObj(cuboid);
+
+  //   for (int i=0; i< rConfig.getListSize();++i){
+      
+  //     cuboid.SetAng_Pitch_deg(rConfig.)
+  //   }
+
     return true;
 }
 
@@ -118,19 +140,21 @@ bool ProgramInterpreter::OpenConnection(){
   return true;
 }
 
+
+
 bool ProgramInterpreter::SendObjToServer(){
-  _Chann2Serv.Send("Clear\n");
+  // _Chann2Serv.Send("Clear\n");
 
-    std::string cstr = rConfig.getMessage();
-    const char* data = cstr.data();
-    _Chann2Serv.Send(data);
+  // std::string cstr = rConfig.AddObjs();
+  // const char* data = cstr.data();
+  // _Chann2Serv.Send(data);
 
-  while(rConfig.getListSize() != 0 ){
-    cstr = rConfig.getMessage();
-    data = cstr.data();
-    _Chann2Serv.Send(data);
-  } 
-  _Chann2Serv.Send("Close\n");
+  // while(rConfig.getListSize() != 0 ){
+  //   cstr = rConfig.AddObjs();
+  //   data = cstr.data();
+  //   _Chann2Serv.Send(data);
+  // } 
+  // _Chann2Serv.Send("Close\n");
   return true;
   
 }
@@ -138,12 +162,16 @@ bool ProgramInterpreter::SendObjToServer(){
 
 bool ProgramInterpreter::ExecProgram(const char* FileName_Prog){
      OpenConnection();
-
      SendObjToServer();
 
-
+    // wczytuje plik dzialan
     if(!this->ExecPreprocesor(FileName_Prog)) return false;
+
+    // przesyla ten strumien z ktorego wczytal do klasu obsugujacej strumienie
     this->interface.findLibrary(IStrm4Cmds);
+
+    rConfig.showPlugins();
+    
 
     return true;
 }

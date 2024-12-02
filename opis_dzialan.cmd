@@ -3,15 +3,15 @@
 * Przykªadowy zestaw polece«
 */
 Begin_Parallel_Actions
-Set Ob_A 2 0 0 30 0 0 // Polozenie obiektu A
-Set Ob_B 10 10 5 0 0 0 // Polozenie obiektu B
-End_Parallel_Actions
-Begin_Parallel_Actions
-Rotate Ob_A OX ROTATE_SPEED 40
-End_Parallel_Actions
-Begin_Parallel_Actions Pause 1000 /* Zawieszenie na 1 sek. */ End_Parallel_Actions
-Begin_Parallel_Actions
-Move Ob_A 10 10
-Rotate Ob_B OZ ROTATE_SPEED 60 /* Rotate i Move wykonywane razem */
-Move Ob_B 10 20 /* powoduja jazde po luku */
+Move Podstawa 10 30
+Move Podstawa.Ramie1 10 30
+Move Podstawa.Ramie1.Podst 10 30
+Move Podstawa.Ramie1.Podst.Skrzydlo 10 30
+Move Podstawa.Ramie1.Podst2 10 30
+Move Podstawa.Ramie1.Podst2.Skrzydlo 10 30
+Move Podstawa.Ramie2 10 30
+Move Podstawa.Ramie2.Podst 10 30
+Move Podstawa.Ramie2.Podst.Skrzydlo 10 30
+Move Podstawa.Ramie2.Podst2 10 30
+Move Podstawa.Ramie2.Podst2.Skrzydlo 10 30
 End_Parallel_Actions

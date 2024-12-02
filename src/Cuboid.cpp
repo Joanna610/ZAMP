@@ -1,6 +1,8 @@
 #include "Cuboid.hh"
 
- double Cuboid::GetAng_Roll_deg() {
+using namespace std;
+
+ double Cuboid::GetAng_Roll_deg() const {
     return _Rotation[0];
  }
 /*!
@@ -10,7 +12,7 @@
 *  zgodnie z ruchem wskazówek zegara wokół osi \e OY.
 *  \return Wartość kąta \e pitch wyrażona w stopniach.
 */
-double Cuboid::GetAng_Pitch_deg(){
+double Cuboid::GetAng_Pitch_deg() const{
     return _Rotation[1];
 }
 /*!
@@ -20,7 +22,7 @@ double Cuboid::GetAng_Pitch_deg(){
 *  zgodnie z ruchem wskazówek zegara wokół osi \e OZ.
 *  \return Wartość kąta \e yaw wyrażona w stopniach.
 */
-double Cuboid::GetAng_Yaw_deg() {
+double Cuboid::GetAng_Yaw_deg() const{
     return _Rotation[2];
 }
 
@@ -89,4 +91,19 @@ void Cuboid::SetName(const char* sName){
 */
 const std::string & Cuboid::GetName() const {
     return _Name;
+}
+
+void Cuboid::PrintCuboid() const {
+    cout << "====================================\n";
+    cout << "Nazwa: " << this->_Name << endl;
+    cout << "Pozycja" << this->_Rotation << endl;
+    cout << "Rotacja" << this->_Position << endl;
+    cout << "====================================\n";
+}
+
+Cuboid& Cuboid::operator=(const Cuboid& cube){
+    this->_Name = cube._Name;
+    this->_Rotation = cube._Rotation;
+    this->_Position = cube._Position;
+    return *this;
 }

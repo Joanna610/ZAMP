@@ -21,11 +21,11 @@ LDFLAGS=-Wall
 
 interp: obj/main.o obj/xmlinterp.o obj/LibInterface.o obj/AbstractInterp4Command.o\
 	 	obj/AbstractMobileObj.o obj/AbstractScene.o obj/AbstractComChannel.o obj/ComChannel.o\
-	  	obj/Set4LibInterfaces.o obj/Scene.o obj/ProgramInterpreter.o obj/Configuration.o
+	  	obj/Set4LibInterfaces.o obj/Scene.o obj/ProgramInterpreter.o obj/Configuration.o obj/Cuboid.o
 	g++ ${LDFLAGS} -o interp  obj/main.o obj/xmlinterp.o obj/LibInterface.o\
 		obj/AbstractInterp4Command.o obj/AbstractMobileObj.o  obj/AbstractScene.o\
 		obj/AbstractComChannel.o obj/ComChannel.o obj/Set4LibInterfaces.o obj/Scene.o\
-		obj/ProgramInterpreter.o obj/Configuration.o -ldl -lxerces-c
+		obj/ProgramInterpreter.o obj/Configuration.o obj/Cuboid.o -ldl -lxerces-c
 
 obj/xmlinterp.o: src/xmlinterp.cpp inc/xmlinterp.hh inc/Vector3D.hh
 	g++ -c ${CPPFLAGS} -o obj/xmlinterp.o src/xmlinterp.cpp
@@ -57,7 +57,7 @@ obj/Set4LibInterfaces.o: src/Set4LibInterfaces.cpp inc/Set4LibInterfaces.hh
 obj/Scene.o: src/Scene.cpp inc/Scene.hh inc/AbstractScene.hh
 	g++ -c ${CPPFLAGS} -o obj/Scene.o src/Scene.cpp
 
-obj/Cuboid.o: src/Cuboid.cpp inc/Cuboid.hh
+obj/Cuboid.o: src/Cuboid.cpp inc/Cuboid.hh inc/AbstractMobileObj.hh
 	g++ -c ${CPPFLAGS} -o obj/Cuboid.o src/Cuboid.cpp
 
 obj/ProgramInterpreter.o: src/ProgramInterpreter.cpp inc/ProgramInterpreter.hh

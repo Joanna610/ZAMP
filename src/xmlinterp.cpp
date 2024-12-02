@@ -148,8 +148,8 @@ void XMLInterp4Config::ProcessCubeAttrs(const xercesc::Attributes  &rAttrs)
      cerr << " Blad!!!" << endl;
  } else {
      cout << " Czytanie wartosci OK!!!" << endl;
-     cout << "     " << Name << endl;
-     CuboidObj._Name = Name;
+     cout << "     " << Name.c_str() << endl;
+     CuboidObj._Name = Name.c_str();
     //  rConfig.AddName(Name);
  }
 

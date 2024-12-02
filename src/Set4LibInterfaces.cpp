@@ -8,14 +8,15 @@ Set4LibInterfaces::Set4LibInterfaces(){
 }
 
 // odwoluje sie do konkretnej biblioteki ktora znajdzie
-void Set4LibInterfaces::findLibrary(std::istream& Strm){
+void Set4LibInterfaces::findLibrary(std::istream& Strm, Scene &_Scene, ComChannel &_CmChnl){
 
     std::string n;
     while (Strm >> n) { 
         auto it = commandLibs.find(n);
         if (it != commandLibs.end()) {
             // wczytuje znaeziona biblioteke i wczytuje jej parametry
-            it->second->readStream(Strm);
+            it->second->readStream(Strm, _Scene, _CmChnl);
+
             it->second->print();
         }
     }

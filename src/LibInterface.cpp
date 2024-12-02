@@ -33,8 +33,9 @@ bool LibInterface::openLibrary(){
     return true;
 }
 
-void LibInterface::readStream(std::istream& Strm){
+void LibInterface::readStream(std::istream& Strm, Scene &_Scn, ComChannel &_CmChnl){
     pCmd->ReadParams(Strm);
+    pCmd->ExecCmd(_Scn, "lol", _CmChnl);
 }
 
 void LibInterface::print(){

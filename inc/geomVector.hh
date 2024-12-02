@@ -78,6 +78,8 @@ namespace geom {
      */
    Vector() { for (Type &Val : _Coord) Val = 0; }
 
+   Vector(const Vector &other) {for(unsigned int i = 0; i< Size; ++i) _Coord[i] = other._Coord[i];}
+
 
     // std::istream & operator>>( std::istream & s, Vector<Type,Size> & v );
     /*!

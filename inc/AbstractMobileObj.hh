@@ -21,7 +21,7 @@
     */
     class AbstractMobileObj {
      public:
-
+      AbstractMobileObj(){}
        virtual ~AbstractMobileObj() {}
       
        /*!

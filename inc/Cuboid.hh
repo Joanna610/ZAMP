@@ -24,11 +24,23 @@
 
       Vector3D _Rotation;
       Vector3D _Position;
-      const char* _Name;
+      std::string _Name;
 
      public:
+        // Cuboid() : _Rotation(), _Position(), _Name("Unnamed") {}
+        Cuboid(){
+          _Rotation = 0;
+          _Position = 0;
+          _Name = "";
+        }
+        Cuboid(AbstractMobileObj* obj) {
+          this->_Name = obj->GetName();
+          this->_Rotation = (obj->GetAng_Roll_deg(), obj->GetAng_Pitch_deg(), obj->GetAng_Yaw_deg());
+          this->_Position = obj->GetPositoin_m();
+        }
 
-      //  virtual ~Cuboid() {}
+        Cuboid& operator=(const Cuboid&);
+       virtual ~Cuboid() {}
       
        /*!
         * \brief Udostępnia wartość kąta \e roll.
@@ -107,6 +119,8 @@
         *  \return Nazwa obiektu.
         */
         virtual const std::string & GetName() const override;
+
+        void PrintCuboid() const;
     };
 
 

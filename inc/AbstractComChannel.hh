@@ -11,7 +11,8 @@
 
 
 #include <mutex>
-
+#include "Vector3D.hh"
+#include <string>
    /*!
     * \brief Definiuje interfejs kanału komunikacyjnego z serwerem graficznym.
     *
@@ -46,6 +47,10 @@
        * \brief Otwiera dostęp do gniazda.
        */
        virtual void UnlockAccess() = 0;
+
+        virtual void TranslateObj(std::string Name, Vector3D Trans) = 0;
+
+
        /*!
         * \brief Udostępnia mutex w trybie modyfikacji.
         *

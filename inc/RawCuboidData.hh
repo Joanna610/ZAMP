@@ -16,7 +16,7 @@ using namespace std;
 
 struct RawCuboidData{
     
-    const char * _Name;
+    std::string _Name;
     Vector3D _Shift;
     Vector3D _Scale;
     Vector3D _RGB;

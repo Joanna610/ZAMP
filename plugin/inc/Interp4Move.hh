@@ -7,7 +7,8 @@
 #endif
 
 #include "AbstractInterp4Command.hh"
-
+#include "Scene.hh"
+// #include "Cuboid.hh"
 /*!
  * \file
  * \brief Definicja klasy Interp4Move

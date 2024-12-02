@@ -1,6 +1,7 @@
 #include <iostream>
 #include <sstream>
 #include "Interp4Move.hh"
+#include <unistd.h> 
 
 
 using std::cout;
@@ -62,9 +63,20 @@ bool Interp4Move::ExecCmd( AbstractScene      &rScn,
 			   AbstractComChannel &rComChann
 			 )
 {
-  /*
-   *  Tu trzeba napisać odpowiedni kod.
-   */
+
+  AbstractMobileObj* cube = rScn.FindMobileObj(this->ObjectName.c_str());
+  cout << "czesc: "<< cube->GetName()<<endl;
+  Vector3D position = cube->GetPositoin_m();
+  for(int i = 0; i< this->_Road_Length; ++i){
+    position[2] = position[2]+i;
+    cube->SetPosition_m(position);
+
+    rComChann.TranslateObj(cube->GetName(), cube->GetPositoin_m());
+    cout << cube->GetPositoin_m()<<endl;
+    usleep(50000);
+  }
+  // cout << "================== UWAGA NAZWA CUBA "
+  // cube.GetName();
   return true;
 }
 

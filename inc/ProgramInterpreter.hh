@@ -35,9 +35,6 @@ public:
     void showConfiguration();
     // bool OpenConnection(int &rSocket);
     bool OpenConnection();
-    bool SendObjToServer();
-
-
-
+    bool UpdateObjOnServer();
 };
 #endif

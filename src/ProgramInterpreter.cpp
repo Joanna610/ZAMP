@@ -1,5 +1,7 @@
 #include "ProgramInterpreter.hh"
 #include <iostream>
+#include <unistd.h>
+
 
 using namespace std;
 
@@ -74,27 +76,28 @@ bool ProgramInterpreter::Read_XML_Config(const char* FileName){
    delete pParser;
    delete pHandler;
 
-  //   for (int value : myList) {
-  //   std::cout << value << " ";
-  // }
-
-    // cout << "============== Obiekty =============="<<endl;
-    
+   _Chann2Serv.Send("Clear\n");
    Cuboid *cuboid = new Cuboid;
-   cuboid->SetName(rConfig[0]._Name);
-   cuboid->SetPosition_m(rConfig[0]._Trans_m);
-   cuboid->SetAng_Pitch_deg(rConfig[0]._RotXYZ_deg[0]);
-   cuboid->SetAng_Roll_deg(rConfig[0]._RotXYZ_deg[1]);
-   cuboid->SetAng_Yaw_deg(rConfig[0]._RotXYZ_deg[2]);
-  std::cout << "Adding to scene..." << std::endl;
+  // adding elements to the scene
+  for (int i=0; i< rConfig.getListSize();++i){
+    
+    cuboid->SetName(rConfig[i]._Name.c_str());
+    cuboid->SetPosition_m(rConfig[i]._Trans_m);
+    cuboid->SetAng_Pitch_deg(rConfig[i]._RotXYZ_deg[0]);
+    cuboid->SetAng_Roll_deg(rConfig[i]._RotXYZ_deg[1]);
+    cuboid->SetAng_Yaw_deg(rConfig[i]._RotXYZ_deg[2]);
+    std::cout << "Adding to scene..." << std::endl;
+
+    _Chann2Serv.AddObjToServer(rConfig[i]._Name, rConfig[i]._Shift, rConfig[i]._Scale, rConfig[i]._Trans_m, rConfig[i]._RGB, rConfig[i]._RotXYZ_deg);
+    // _Chann2Serv.Send(data);
 
     _Scn.AddMobileObj(cuboid);
+  }
+  delete cuboid;
 
-  //   for (int i=0; i< rConfig.getListSize();++i){
-      
-  //     cuboid.SetAng_Pitch_deg(rConfig.)
-  //   }
-
+      // cout <<"Wyswietlam wszystkie obiekty\n";
+      // _Scn.PrintObjOnScene();
+      _Chann2Serv.Send("Close\n");
     return true;
 }
 
@@ -141,38 +144,22 @@ bool ProgramInterpreter::OpenConnection(){
 }
 
 
-
-bool ProgramInterpreter::SendObjToServer(){
-  // _Chann2Serv.Send("Clear\n");
-
-  // std::string cstr = rConfig.AddObjs();
-  // const char* data = cstr.data();
-  // _Chann2Serv.Send(data);
-
-  // while(rConfig.getListSize() != 0 ){
-  //   cstr = rConfig.AddObjs();
-  //   data = cstr.data();
-  //   _Chann2Serv.Send(data);
-  // } 
-  // _Chann2Serv.Send("Close\n");
-  return true;
-  
-}
-
-
 bool ProgramInterpreter::ExecProgram(const char* FileName_Prog){
-     OpenConnection();
-     SendObjToServer();
+    if(!OpenConnection()) return false;
 
+    if (!Read_XML_Config("config/config.xml")) {
+      cout << "Nie udało się wczytac pliku XML.\n";
+      return 1;
+    }
+    
     // wczytuje plik dzialan
     if(!this->ExecPreprocesor(FileName_Prog)) return false;
 
     // przesyla ten strumien z ktorego wczytal do klasu obsugujacej strumienie
-    this->interface.findLibrary(IStrm4Cmds);
+    this->interface.findLibrary(IStrm4Cmds, _Scn, _Chann2Serv);
 
     rConfig.showPlugins();
     
-
     return true;
 }
 

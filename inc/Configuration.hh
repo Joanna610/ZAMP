@@ -11,7 +11,7 @@ class Configuration {
 
 public:
 
-  RawCuboidData  &operator [](unsigned int Ind); // { auto it = _Objects.begin(); std::advance(it, 2);}
+  RawCuboidData operator [](unsigned int Ind); // { auto it = _Objects.begin(); std::advance(it, 2);}
 
   Configuration() = default;
   void AddObject(RawCuboidData obj);

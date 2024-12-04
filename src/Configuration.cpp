@@ -35,6 +35,17 @@ int Configuration::getListSize(){
     return (int)listSize;
 }
 
+int Configuration::getPluginListSize(){
+    size_t listSize = _Plugins.size();
+    return (int)listSize;
+}
+
+std::string Configuration::getPlugin(int index){
+    auto it = _Plugins.begin();
+    std::advance(it, index);
+    return *it;
+}
+
 
 RawCuboidData Configuration::operator[](unsigned int Ind) { 
 

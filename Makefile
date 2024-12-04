@@ -48,7 +48,7 @@ obj/AbstractScene.o: src/AbstractScene.cpp inc/AbstractScene.hh
 obj/AbstractComChannel.o: src/AbstractComChannel.cpp inc/AbstractComChannel.hh
 	g++ -c ${CPPFLAGS} -o obj/AbstractComChannel.o src/AbstractComChannel.cpp
 
-obj/ComChannel.o: src/ComChannel.cpp inc/ComChannel.hh
+obj/ComChannel.o: src/ComChannel.cpp inc/ComChannel.hh inc/AbstractComChannel.hh
 	g++ -c ${CPPFLAGS} -o obj/ComChannel.o src/ComChannel.cpp
 
 obj/Set4LibInterfaces.o: src/Set4LibInterfaces.cpp inc/Set4LibInterfaces.hh

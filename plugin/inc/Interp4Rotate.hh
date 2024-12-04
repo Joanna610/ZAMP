@@ -8,6 +8,10 @@
 
 #include "AbstractInterp4Command.hh"
 
+#include "Scene.hh"
+#include "ComChannel.hh"
+#define AMOUNT_OF_RATATION 20
+
 /*!
  * \file
  * \brief Definicja klasy Interp4Rotate

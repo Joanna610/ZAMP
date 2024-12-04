@@ -33,9 +33,13 @@ bool LibInterface::openLibrary(){
     return true;
 }
 
-void LibInterface::readStream(std::istream& Strm, Scene &_Scn, ComChannel &_CmChnl){
+
+AbstractInterp4Command* LibInterface::readStream(std::istream& Strm, Scene &_Scn, ComChannel &_CmChnl){
     pCmd->ReadParams(Strm);
-    pCmd->ExecCmd(_Scn, "lol", _CmChnl);
+    // std::shared_ptr<AbstractInterp4Command> cmdPtr(pCmd);
+    // Lib_Interp.push_back(cmdPtr);
+    // pCmd->ExecCmd(_Scn, "", _CmChnl);
+    return pCmd;
 }
 
 void LibInterface::print(){

@@ -48,7 +48,7 @@
        */
        virtual void UnlockAccess() = 0;
 
-        virtual void TranslateObj(std::string Name, Vector3D Trans) = 0;
+        virtual void UpdateObj(std::string Name, Vector3D Trans,  Vector3D Rot) = 0;
 
 
        /*!

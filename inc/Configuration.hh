@@ -23,6 +23,9 @@ public:
   
   std::string AddObjs();
   int getListSize();
+  int getPluginListSize();
+  std::string getPlugin(int index);
+
 };
 
 #endif

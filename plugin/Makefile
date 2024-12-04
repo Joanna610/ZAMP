@@ -24,7 +24,7 @@ __lines_for_space__:
 	@echo
 
 obj/Interp4Move.o: src/Interp4Move.cpp ../inc/AbstractInterp4Command.hh\
-                   ../inc/AbstractScene.hh ../inc/AbstractMobileObj.hh ../inc/AbstractComChannel.hh\
+                   ../inc/AbstractScene.hh ../inc/AbstractMobileObj.hh ../inc/AbstractComChannel.hh ../inc/ComChannel.hh\
                    inc/Interp4Move.hh 
 	g++ -c ${CPPFLAGS} -o obj/Interp4Move.o src/Interp4Move.cpp
 

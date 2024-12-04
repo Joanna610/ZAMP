@@ -3,15 +3,9 @@
 * Przykªadowy zestaw polece«
 */
 Begin_Parallel_Actions
-Move Podstawa 10 30
-Move Podstawa.Ramie1 10 30
-Move Podstawa.Ramie1.Podst 10 30
-Move Podstawa.Ramie1.Podst.Skrzydlo 10 30
-Move Podstawa.Ramie1.Podst2 10 30
-Move Podstawa.Ramie1.Podst2.Skrzydlo 10 30
-Move Podstawa.Ramie2 10 30
-Move Podstawa.Ramie2.Podst 10 30
-Move Podstawa.Ramie2.Podst.Skrzydlo 10 30
-Move Podstawa.Ramie2.Podst2 10 30
-Move Podstawa.Ramie2.Podst2.Skrzydlo 10 30
+Move Podstawa 10 10
+Rotate Podstawa.Ramie1.Podst.Skrzydlo OZ 10 10
+Rotate Podstawa.Ramie1.Podst2.Skrzydlo OZ 10 10
+Rotate Podstawa.Ramie2.Podst.Skrzydlo OZ 10 10
+Rotate Podstawa.Ramie2.Podst2.Skrzydlo OZ 10 10
 End_Parallel_Actions

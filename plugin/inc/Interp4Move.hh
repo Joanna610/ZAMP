@@ -8,6 +8,7 @@
 
 #include "AbstractInterp4Command.hh"
 #include "Scene.hh"
+#include "ComChannel.hh"
 // #include "Cuboid.hh"
 /*!
  * \file

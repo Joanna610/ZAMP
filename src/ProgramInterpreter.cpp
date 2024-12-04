@@ -94,10 +94,6 @@ bool ProgramInterpreter::Read_XML_Config(const char* FileName){
     _Scn.AddMobileObj(cuboid);
   }
   delete cuboid;
-
-      // cout <<"Wyswietlam wszystkie obiekty\n";
-      // _Scn.PrintObjOnScene();
-      _Chann2Serv.Send("Close\n");
     return true;
 }
 
@@ -151,22 +147,21 @@ bool ProgramInterpreter::ExecProgram(const char* FileName_Prog){
       cout << "Nie udało się wczytac pliku XML.\n";
       return 1;
     }
+
+    for (int i = 0; i< rConfig.getPluginListSize(); i++){
+      this->interface.initLibrary(rConfig.getPlugin(i));
+    }
     
     // wczytuje plik dzialan
     if(!this->ExecPreprocesor(FileName_Prog)) return false;
-
     // przesyla ten strumien z ktorego wczytal do klasu obsugujacej strumienie
     this->interface.findLibrary(IStrm4Cmds, _Scn, _Chann2Serv);
 
-    rConfig.showPlugins();
-    
+    _Chann2Serv.Send("Close\n");
+        rConfig.showPlugins();
+
     return true;
 }
-
-
-// void ProgramInterpreter::showConfiguration(){
-//      rConfig.showObjects();
-// }
 
 
 

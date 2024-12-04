@@ -62,9 +62,48 @@ bool Interp4Rotate::ExecCmd( AbstractScene      &rScn,
 			   AbstractComChannel &rComChann
 			 )
 {
-  /*
-   *  Tu trzeba napisać odpowiedni kod.
-   */
+      usleep(_AngularSpeed*10000);
+          cout<< "Start watku w Rotate: "<<std::this_thread::get_id() << endl;
+
+        // ComChannel* CmChnl = static_cast<ComChannel*>(&rComChann);
+
+
+      rComChann.LockAccess();
+
+  AbstractMobileObj* cube = rScn.FindMobileObj(this->ObjectName.c_str());
+
+  double rot1 = cube->GetAng_Pitch_deg();
+  double rot2 = cube->GetAng_Roll_deg();
+  double rot3 = cube->GetAng_Yaw_deg();
+  Vector3D position = cube->GetPositoin_m();
+    rComChann.UnlockAccess();
+
+
+  for(int i = 0; i < AMOUNT_OF_RATATION; ++i){
+  //   cout << "wchodze do petli"<<endl;
+      rComChann.LockAccess();
+
+    rot3 += 1;
+    if( _NameOdAxis == "OZ"){
+      cube->SetAng_Roll_deg(rot3);
+    }
+    else if(_NameOdAxis == "OY"){
+      cube->SetAng_Pitch_deg(rot3);
+    }
+    else if(_NameOdAxis == "OX"){
+      cube->SetAng_Yaw_deg(rot3);
+    }
+    
+    position[0] += 0.01;
+    cube->SetPosition_m(position);
+    rComChann.UpdateObj(cube->GetName(), cube->GetPositoin_m(), Vector3D(cube->GetAng_Pitch_deg(), cube->GetAng_Roll_deg(), cube->GetAng_Yaw_deg()));
+    rComChann.UnlockAccess();
+
+  //   cout << cube->GetPositoin_m()<<endl;
+  usleep(_AngularSpeed*10000);
+  }
+
+  // // usleep(100000);
   return true;
 }
 

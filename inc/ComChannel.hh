@@ -79,7 +79,7 @@
 
       void AddObjToServer(std::string Name, Vector3D Shift, Vector3D Scale,Vector3D Trans, Vector3D RGB, Vector3D Rot);
       void RotateObj(std::string Name, Vector3D Rot);
-      virtual void TranslateObj(std::string Name, Vector3D Trans) override;
+      virtual void UpdateObj(std::string Name, Vector3D Trans, Vector3D Rot) override;
        int Send(const char *sMesg);
     };
 

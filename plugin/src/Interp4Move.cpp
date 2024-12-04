@@ -63,20 +63,30 @@ bool Interp4Move::ExecCmd( AbstractScene      &rScn,
 			   AbstractComChannel &rComChann
 			 )
 {
+    usleep(_Speed_mmS*10000);
 
-  AbstractMobileObj* cube = rScn.FindMobileObj(this->ObjectName.c_str());
-  cout << "czesc: "<< cube->GetName()<<endl;
-  Vector3D position = cube->GetPositoin_m();
-  for(int i = 0; i< this->_Road_Length; ++i){
-    position[2] = position[2]+i;
+    // ComChannel* CmChnl = static_cast<ComChannel*>(&rComChann);
+    rComChann.LockAccess();
+    cout<< "Start watku w Move: "<<std::this_thread::get_id() << endl;
+    AbstractMobileObj* cube = rScn.FindMobileObj(this->ObjectName.c_str());
+
+    cout<< "Nazwa lol: "<< cube->GetName();
+
+    Vector3D position = cube->GetPositoin_m();
+    rComChann.UnlockAccess();
+
+  cout << "wchodze do petli\n";
+  for(int i = 0; i < this->_Road_Length; ++i){
+    rComChann.LockAccess();
+
+    position[1] += 1;
+    
     cube->SetPosition_m(position);
-
-    rComChann.TranslateObj(cube->GetName(), cube->GetPositoin_m());
-    cout << cube->GetPositoin_m()<<endl;
-    usleep(50000);
+    
+    rComChann.UpdateObj(cube->GetName(), cube->GetPositoin_m(), Vector3D(cube->GetAng_Pitch_deg(), cube->GetAng_Roll_deg(), cube->GetAng_Yaw_deg()));
+   rComChann.UnlockAccess();
+    usleep(_Speed_mmS*10000);
   }
-  // cout << "================== UWAGA NAZWA CUBA "
-  // cube.GetName();
   return true;
 }
 

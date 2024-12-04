@@ -22,14 +22,15 @@ class LibInterface{
     std::string CmdName;
     AbstractInterp4Command *(*_pCreateCmd)();
     AbstractInterp4Command *pCmd;
-    list<std::thread> list_Thread;
-    list<shared_ptr<AbstractInterp4Command>> Lib_Interp;
+    
 
 public:
     bool openLibrary();
     void print();
-    void readStream(std::istream& Strm, Scene &_Scn, ComChannel &_CmChnl);
+    AbstractInterp4Command* readStream(std::istream& Strm, Scene &_Scn, ComChannel &_CmChnl);
     LibInterface(std::string LibraryName);
+    static void Fun4Thread(AbstractInterp4Command* pInterp, Scene &rScn , ComChannel &rChann);
+
     ~LibInterface();
 };
 #endif
